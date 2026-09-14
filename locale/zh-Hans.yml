@@ -1,0 +1,105 @@
+ffans-threadmarks:
+  admin:
+    permissions:
+      manage_personal_label: 管理自己的个人帖标
+      manage_own_discussion_label: 管理自己讨论的公共帖标
+      manage_discussion_label: 管理任意讨论的公共帖标
+    types:
+      add_button: 创建类型
+      table_a11y_label: 帖标类型
+      order_heading: 排序
+      type_heading: "=> ffans-threadmarks.ref.type"
+      key_heading: "=> ffans-threadmarks.ref.key"
+      source_heading: 来源
+      enabled_heading: 启用
+      actions_heading: 操作
+      reorder_tooltip: 拖动调整顺序
+      builtin_label: 内置
+      custom_label: 自定义
+      enable_type_a11y_label: 启用「{name}」
+      edit_type_a11y_label: 编辑「{name}」
+      empty_text: 暂无帖标类型。
+    create_type_modal:
+      title: 创建帖标类型
+      submit_button: 创建
+    edit_type_modal:
+      title: 编辑帖标类型
+      submit_button: "=> ffans-threadmarks.ref.save"
+      delete_button: "=> core.ref.delete"
+      delete_confirmation: 确定要删除这个帖标类型吗？
+  forum:
+    type_labels:
+      default: 帖标
+      notice: 通知
+      highlight: 重点
+      progress: 进度
+      update: 更新
+      chapter: 章节
+    manage_modal:
+      title: "帖标 · #{number}"
+      scope_a11y_label: 帖标范围
+      personal_tab: 个人
+      discussion_tab: "=> ffans-threadmarks.ref.discussion"
+      loading_text: "=> core.ref.loading"
+      unavailable_text: 没有可管理的帖标。
+      type_label: "=> ffans-threadmarks.ref.type"
+      type_placeholder: 请选择类型
+      note_label: 备注
+      note_placeholder: 可选
+      save_button: "=> ffans-threadmarks.ref.save"
+      add_button: 添加
+      delete_button: "=> core.ref.delete"
+      delete_personal_confirmation: 确定要删除这个个人帖标吗？
+      delete_discussion_confirmation: 确定要删除这个讨论帖标吗？
+    directory:
+      title: "=> ffans-threadmarks.ref.threadmarks"
+      show_button: 关键内容目录
+      hide_button: 关键内容目录
+      close_a11y_label: 关闭关键内容目录
+      scope_a11y_label: 按范围筛选帖标
+      all_filter: 全部
+      personal_filter: "=> ffans-threadmarks.ref.mine"
+      discussion_filter: "=> ffans-threadmarks.ref.discussion"
+    threadmark:
+      mine_badge: "=> ffans-threadmarks.ref.mine"
+      personal_tooltip: 个人帖标，仅自己可见
+      edit_personal_tooltip: 编辑个人帖标
+      edit_discussion_tooltip: 编辑讨论帖标
+      edit_personal_a11y_label: 编辑第 {number} 楼的个人帖标
+      edit_discussion_a11y_label: 编辑第 {number} 楼的讨论帖标
+      deleted_text: 此内容已被删除。
+    scrubber:
+      threadmark_a11y_label: 第 {number} 楼的帖标
+      cluster_a11y_label: "{count} 个帖标"
+      open_directory_a11y_label: 打开完整帖标目录
+    discussion_controls:
+      show_all_button: 查看全部帖子
+      show_threadmarks_button: 只看关键内容
+    post_controls:
+      manage_button: 管理帖标
+  ref:
+    discussion: 讨论
+    mine: 我的
+    threadmarks: 帖标目录
+    type: 类型
+    key: 标识符
+    save: 保存
+  lib:
+    gdpr:
+      export_description: 导出你的全部个人帖标，以及由你创建或最后编辑的讨论帖标，不包含帖子正文。
+      anonymize_description: 删除你的个人帖标，清空讨论帖标中与你关联的创建者和最后编辑者 ID 记录。
+      delete_description: 删除你的个人帖标，清空讨论帖标中与你关联的创建者和最后编辑者 ID 记录。
+    type_form:
+      key_label: "=> ffans-threadmarks.ref.key"
+      name_label: 名称
+      color_label: "=> core.ref.color"
+      icon_label: "=> core.ref.icon"
+      icon_placeholder: fa-solid fa-book
+    validation:
+      first_post: 首帖不能添加帖标。
+      duplicate_discussion: 此帖子已有讨论帖标，请编辑现有帖标。
+      invalid_discussion_post: 只能为普通回复添加讨论帖标。
+      duplicate_personal: 你已为这条帖子添加了个人帖标，请修改已有帖标。
+      invalid_personal_post: 只能为回复内容添加个人帖标。
+      disabled_type: 此帖标类型已停用，请选择其他类型。
+      type_in_use: 此类型已被使用，不能删除。

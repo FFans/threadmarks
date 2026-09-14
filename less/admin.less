@@ -1,0 +1,184 @@
+.CreateThreadmarkTypeModal, .EditThreadmarkTypeModal {
+  .ColorInput .FormControl, .ThreadmarkTypeIconInput .FormControl {
+    padding-left: 44px;
+  }
+
+  .ColorInput-preview, .ColorInput-icon {
+    left: 12px;
+    right: auto;
+  }
+
+  .ThreadmarkTypeIconInput {
+    position: relative;
+
+    &-preview {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      pointer-events: none;
+    }
+  }
+}
+
+.EditThreadmarkTypeModal {
+  &-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    border-top: 1px solid var(--control-bg);
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+
+  //&-delete {
+  //  color: var(--validation-error-color);
+  //}
+
+  &-deleteReason {
+    margin: 12px 0 0;
+  }
+}
+
+.ThreadmarkTypesPage {
+  padding-bottom: 24px;
+
+  &-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    margin: 20px 0 20px;
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+  }
+
+  &-tableContainer {
+    overflow-x: auto;
+    border: 1px solid var(--control-bg);
+    border-radius: var(--border-radius);
+    background: var(--body-bg);
+  }
+}
+
+.ThreadmarkTypeList {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  text-align: start;
+
+  th, td {
+    padding: 16px;
+    vertical-align: middle;
+    text-align: start;
+  }
+
+  thead th {
+    background: var(--control-bg);
+    color: var(--control-color);
+    font-size: 12px;
+    font-weight: 600;
+    padding-block: 12px;
+    white-space: nowrap;
+  }
+
+  tbody tr + tr > * {
+    border-top: 1px solid var(--control-bg);
+  }
+
+  &-item:hover, &-item:focus-within {
+    background: var(--body-bg-shaded);
+  }
+
+  &-item--dragging {
+    opacity: 0.4;
+  }
+
+  & &-order {
+    width: 44px;
+    padding: 0;
+    text-align: center;
+  }
+
+  &-handle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    min-height: 44px;
+    color: var(--muted-color);
+    cursor: grab;
+    touch-action: none;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &-name {
+    min-width: 180px;
+    max-width: 320px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  &-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  &-key {
+    padding: 0;
+    background: none;
+    color: var(--muted-color);
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  &-source, &-status {
+    color: var(--muted-color);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  & &-actions {
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  & &-empty {
+    padding: 40px 24px;
+    color: var(--muted-color);
+    text-align: center;
+  }
+
+  @media (max-width: 767px) {
+    th, td {
+      padding-inline: 12px;
+    }
+
+    &-actions .Button {
+      min-height: 44px;
+    }
+  }
+}

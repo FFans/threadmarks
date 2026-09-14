@@ -1,0 +1,525 @@
+.ThreadmarkList {
+  &-header {
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  &-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &-item {
+    display: flex;
+    align-items: baseline;
+  }
+
+  &-edit {
+    flex-shrink: 0;
+  }
+
+  &-button {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  &-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+
+  &-number {
+    flex-shrink: 0;
+    color: var(--muted-color);
+    //margin-left: auto;
+    font-size: 12px;
+  }
+
+  &-note, &-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+}
+
+.ThreadmarkScrubberMarkers {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ThreadmarkScrubberMarker {
+  position: absolute;
+  left: 0.5px;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 2px solid var(--body-bg);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  pointer-events: auto;
+
+  &--cluster > i {
+    background-color: var(--button-bg);
+    font-style: normal;
+    line-height: 1;
+    padding: 2px 4px;
+    border-radius: 12px;
+
+    position: absolute;
+    font-size: 12px;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--button-color);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  // keep the none-cluster marker hover
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -6px;
+    width: 14px;
+    height: 18px;
+  }
+
+  &--cluster {
+    &:hover,
+    &:focus-within {
+      > i {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.8);
+      }
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    background: var(--threadmark-color);
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity 0.15s ease,
+    transform 0.15s ease;
+    pointer-events: none;
+  }
+
+  &:hover::before,
+  &:focus-within::before {
+    opacity: 0.18;
+    transform: scale(1);
+  }
+
+  &:hover,
+  &:focus-within,
+  &:not(&--cluster):hover,
+  &:not(&--cluster):focus-within {
+    z-index: 3;
+
+    > .ThreadmarkScrubberMarker-collapse {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: scale(1);
+      transition-duration: 0.2s, 0.2s, 0s;
+      transition-delay: 0s;
+    }
+  }
+
+  //&:not(&--cluster) > &-collapse {
+  //  top: 0;
+  //  transform-origin: center right;
+  //  transform: translateY(-50%) scale(0.15, 0.25);
+  //}
+  //
+  //&:not(&--cluster):hover,
+  //&:not(&--cluster):focus-within {
+  //  > .ThreadmarkScrubberMarker-collapse {
+  //    transform: translateY(-50%) scale(1);
+  //  }
+  //}
+
+  &-collapse {
+    position: absolute;
+    right: 12px;
+    top: -6px;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.15, 0.25);
+    transform-origin: top right;
+    transition: opacity 0.15s ease,
+    transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0.15s;
+    text-align: left;
+    list-style: none;
+
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+
+    background-color: var(--body-bg);
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+
+    box-shadow: 0px 0px 1px color-mix(in srgb, var(--text-color) 2%, transparent),
+    0px 2px 6px color-mix(in srgb, var(--text-color) 3%, transparent),
+    0px 4px 13px color-mix(in srgb, var(--text-color) 5%, transparent),
+    0px 8px 23px color-mix(in srgb, var(--text-color) 6%, transparent),
+    0px 12px 36px color-mix(in srgb, var(--text-color) 8%, transparent);
+
+    &Item {
+      display: inline-flex;
+      justify-content: flex-start;
+      align-items: baseline;
+      flex-wrap: nowrap;
+      gap: 6px;
+      padding: 8px 10px;
+      width: 100%;
+
+      &:first-of-type {
+        //padding-top: 10px;
+      }
+
+      &:last-of-type {
+        //padding-bottom: 10px;
+      }
+
+      .icon {
+        color: var(--threadmark-color);
+      }
+
+      &:hover {
+        background-color: var(--button-bg);
+      }
+    }
+
+    &Note {
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &Note, &Label {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    &Number {
+      color: var(--button-color);
+      margin-left: auto;
+      font-size: 12px;
+    }
+  }
+}
+
+.ThreadmarkMineBadge {
+  display: inline-block;
+  flex-shrink: 0;
+  padding: 2px 6px;
+  border-radius: 12px;
+  border: 1px solid var(--control-bg);
+  color: var(--control-color);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.ThreadmarkBlock > .ThreadmarkMineBadge,
+.ThreadmarkLabel > .ThreadmarkMineBadge {
+  margin-inline-start: 8px;
+}
+
+.ThreadmarkBlock {
+  padding: var(--post-padding) var(--post-padding) 0 0;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  width: 100%;
+
+  .icon {
+    color: var(--threadmark-color);
+  }
+
+  .ThreadmarkLabel {
+    &-type, &-note {
+      margin-left: 6px;
+      color: var(--muted-color);
+      font-weight: 600;
+    }
+  }
+
+  .ThreadmarkLabel-note {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+}
+
+.ThreadmarkTombstone-content {
+  padding: var(--post-padding) var(--post-padding) calc(var(--post-padding) * 2.5) 0;
+  text-align: center;
+  color: var(--muted-color);
+  font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ThreadmarkScrubberMarker--cluster > i,
+  .ThreadmarkScrubberMarker--cluster > .ThreadmarkScrubberMarker-collapse {
+    transition: none;
+  }
+}
+
+.ThreadmarkDirectory-trigger {
+  margin-bottom: 12px;
+}
+
+.ThreadmarkDirectory {
+  position: fixed;
+  z-index: 1020;
+  width: 320px;
+  max-width: calc(100vw - 16px);
+  max-height: min(320px, calc(100dvh - 16px));
+  display: flex;
+  flex-direction: column;
+  background: var(--body-bg);
+  color: var(--text-color);
+  border: 1px solid var(--control-bg);
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+
+  &-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--control-bg);
+    padding: 8px;
+    flex-shrink: 0;
+    background-color: var(--header-control-bg);
+    font-size: 15px;
+  }
+
+  &-drag {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    flex: 1;
+    cursor: move;
+    touch-action: none;
+    user-select: none;
+  }
+
+  &-drag > .icon {
+    color: var(--muted-color);
+  }
+
+  &-filters {
+    display: flex;
+    gap: 4px;
+    padding: 8px 8px 0 8px;
+    flex-shrink: 0;
+    //border-bottom: 1px solid var(--control-bg);
+
+    > .Button {
+      flex: 1;
+      min-width: 0;
+      min-height: 32px;
+      font-weight: normal;
+    }
+  }
+
+  &-content {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 6px;
+  }
+
+  .ThreadmarkList-item:hover, .ThreadmarkList-item:focus-visible {
+    background: var(--control-bg);
+  }
+
+  .ThreadmarkList-item {
+    color: var(--text-color);
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .DiscussionPage-nav > ul > .item-threadmarks {
+    display: block;
+    margin: 0;
+  }
+
+  .DiscussionPage-nav .ThreadmarkDirectory-mobile {
+    position: absolute;
+    top: 0;
+    right: 40px;
+    z-index: calc(var(--zindex-header) + 1);
+    margin: 0;
+
+    > .ThreadmarkDirectory-toggle {
+      width: 40px;
+      height: var(--header-height-phone);
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: var(--header-control-color);
+
+      .Button-icon {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .Button-label {
+        display: none;
+      }
+    }
+  }
+
+  .App.affix .DiscussionPage-nav .ThreadmarkDirectory-mobile {
+    position: fixed;
+  }
+
+  .DiscussionPage-nav .ThreadmarkDirectory-mobile.open {
+    z-index: var(--zindex-modal);
+  }
+
+  .ThreadmarkDirectory-mobile .ThreadmarkDirectory-mobileMenu {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .ThreadmarkDirectory-filters > .Button {
+      min-height: 44px;
+    }
+  }
+
+  .ThreadmarkDirectory-mobileTitle {
+    flex: 1;
+    padding: 8px;
+  }
+}
+
+.DiscussionPage-nav:has(.ThreadmarkDirectory-toggle[aria-expanded="true"]) .ThreadmarkScrubberMarker-collapse {
+  display: none;
+}
+
+.ThreadmarkScrubberMarker-hit {
+  position: absolute;
+  inset: -2px;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ThreadmarkScrubberMarker-collapse {
+  flex-direction: row;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.ThreadmarkScrubberMarker-collapseList {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.ThreadmarkScrubberMarker-openDirectory {
+  order: 1;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid var(--control-bg);
+  background: transparent;
+  color: var(--button-color);
+  cursor: pointer;
+
+  &:hover, &:focus-visible {
+    background: var(--control-bg);
+  }
+}
+
+.ManageThreadmarkModal {
+  &-typeSelect {
+    position: relative;
+
+    .Select-input {
+      padding-left: 34px;
+    }
+  }
+
+  &-typePreview {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    pointer-events: none;
+  }
+
+  &-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  &-tab {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 36px;
+    padding: 8px 12px;
+    white-space: normal;
+
+    &.Button--link {
+      color: var(--muted-color);
+    }
+  }
+
+  @media (max-width: 767px) {
+    &-tab {
+      min-height: 44px;
+      padding-inline: 8px;
+    }
+  }
+}
