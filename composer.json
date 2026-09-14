@@ -1,0 +1,97 @@
+{
+  "name": "ffans/threadmarks",
+  "description": "Add threadmarks to discussions for organizing and navigating important posts.",
+  "type": "flarum-extension",
+  "license": "MIT",
+  "keywords": [
+    "flarum"
+  ],
+  "homepage": "https://github.com/FFans/threadmarks",
+  "support": {
+    "issues": "https://github.com/FFans/threadmarks/issues",
+    "source": "https://github.com/FFans/threadmarks",
+    "forum": "https://discuss.flarum.org/d/39857"
+  },
+  "authors": [
+    {
+      "name": "Golden",
+      "email": "thatsgolden@outlook.com",
+      "homepage": "https://github.com/thatsgolden",
+      "role": "Developer"
+    },
+    {
+      "name": "FFans",
+      "homepage": "https://github.com/FFans"
+    }
+  ],
+  "require": {
+    "php": "^8.0",
+    "flarum/core": "^1.8.19"
+  },
+  "require-dev": {
+    "flarum/testing": "^1.8.1",
+    "flarum/gdpr": "^1.8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "FFans\\Threadmarks\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FFans\\Threadmarks\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": [
+      "@test:unit",
+      "@test:integration"
+    ],
+    "test:unit": "phpunit -c tests/phpunit.unit.xml",
+    "test:integration": "phpunit -c tests/phpunit.integration.xml",
+    "test:setup": "@php tests/integration/setup.php"
+  },
+  "scripts-descriptions": {
+    "test": "Runs all tests.",
+    "test:unit": "Runs all unit tests.",
+    "test:integration": "Runs all integration tests.",
+    "test:setup": "Sets up a database for use with integration tests. Execute this only once."
+  },
+  "extra": {
+    "flarum-extension": {
+      "title": "FFans Threadmarks",
+      "category": "feature",
+      "optional-dependencies": ["flarum/gdpr"],
+      "icon": {
+        "name": "fas fa-bookmark",
+        "color": "#ffffff",
+        "backgroundColor": "#357eff"
+      }
+    },
+    "flarum-cli": {
+      "modules": {
+        "admin": true,
+        "forum": true,
+        "js": true,
+        "jsCommon": true,
+        "css": true,
+        "locale": true,
+        "gitConf": true,
+        "githubActions": true,
+        "prettier": false,
+        "typescript": true,
+        "bundlewatch": false,
+        "frontendTesting": true,
+        "backendTesting": true,
+        "phpstan": false,
+        "editorConfig": true,
+        "styleci": true
+      }
+    },
+    "volta": {
+      "php": "8.3.33"
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
