@@ -1,7 +1,6 @@
 import app from 'flarum/forum/app';
 
 import register from './extend';
-import addThreadmarkList from './extenders/addThreadmarkList';
 import addThreadmarkOnlyMode from './extenders/addThreadmarkOnlyMode';
 import addThreadmarkPostBlock from './extenders/addThreadmarkPostBlock';
 import addThreadmarkPostControl from './extenders/addThreadmarkPostControl';
@@ -17,7 +16,6 @@ app.initializers.add('ffans-threadmarks', () => {
 
   addThreadmarkPostControl();
   addThreadmarkPostBlock();
-  addThreadmarkList();
   addThreadmarkScrubberMarkers();
   addThreadmarkPostFlash();
   addThreadmarkTombstones();

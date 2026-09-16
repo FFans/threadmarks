@@ -2,6 +2,7 @@ import Mithril from 'mithril';
 
 import Button from 'flarum/common/components/Button';
 import { extend, override } from 'flarum/common/extend';
+import extractText from 'flarum/common/utils/extractText';
 import ItemList from 'flarum/common/utils/ItemList';
 import app from 'flarum/forum/app';
 import DiscussionPage from 'flarum/forum/components/DiscussionPage';
@@ -9,9 +10,12 @@ import PostStream from 'flarum/forum/components/PostStream';
 import PostStreamScrubber from 'flarum/forum/components/PostStreamScrubber';
 import PostStreamState from 'flarum/forum/states/PostStreamState';
 
+import ThreadmarkDirectory from '../components/ThreadmarkDirectory';
 import ThreadmarkOnlyStream from '../components/ThreadmarkOnlyStream';
+import Threadmark from '../models/Threadmark';
 import ThreadmarkStreamState from '../states/ThreadmarkStreamState';
 import { discussionThreadmarks } from '../utils/discussionThreadmarks';
+import { navigateToThreadmark } from '../utils/threadmarkNavigation';
 import { findVnodeByClass } from '../utils/vnode';
 
 export default function addThreadmarkOnlyMode() {
@@ -22,11 +26,15 @@ export default function addThreadmarkOnlyMode() {
 
     if (!discussion || (!active && !discussionThreadmarks(discussion).length)) return;
 
-    items.add(
-      'threadmarksOnly',
+    const onlyModeControl = (
       <Button
-        icon={active ? 'fas fa-bookmark' : 'far fa-bookmark'}
-        className={`Button Button--block App-secondaryControl ${active ? 'active' : ''}`}
+        className={`Button Button--block ThreadmarkOnlyButton ${active ? 'active' : ''}`}
+        aria-pressed={active ? 'true' : 'false'}
+        aria-label={
+          active
+            ? extractText(app.translator.trans('ffans-threadmarks.forum.discussion_controls.show_all_button_a11y_label'))
+            : extractText(app.translator.trans('ffans-threadmarks.forum.discussion_controls.show_threadmarks_button_a11y_label'))
+        }
         onclick={async () => {
           if (active) {
             const stream = app.current.get('stream') as PostStreamState;
@@ -64,7 +72,28 @@ export default function addThreadmarkOnlyMode() {
         {active
           ? app.translator.trans('ffans-threadmarks.forum.discussion_controls.show_all_button')
           : app.translator.trans('ffans-threadmarks.forum.discussion_controls.show_threadmarks_button')}
-      </Button>,
+      </Button>
+    );
+
+    items.add(
+      'threadmarksOnly',
+      <ThreadmarkDirectory
+        discussion={discussion}
+        onlyModeControl={onlyModeControl}
+        onNavigate={(threadmark: Threadmark) =>
+          navigateToThreadmark.call(
+            {
+              stream: this.stream,
+              updateScrubberValues: () => {
+                this.stream!.forceUpdateScrubber = true;
+                m.redraw();
+              },
+            },
+            discussion,
+            threadmark
+          )
+        }
+      />,
       0
     );
   });

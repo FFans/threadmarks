@@ -12,7 +12,11 @@ import ThreadmarkList, { ThreadmarkListAttrs, ThreadmarkScope } from './Threadma
 
 const POSITION_KEY = 'ffans-threadmarks.directory-position';
 
-export default class ThreadmarkDirectory extends Component<ThreadmarkListAttrs> {
+interface ThreadmarkDirectoryAttrs extends ThreadmarkListAttrs {
+  onlyModeControl?: Mithril.Children;
+}
+
+export default class ThreadmarkDirectory extends Component<ThreadmarkDirectoryAttrs> {
   private isOpened = false;
   private phone = false;
   private closeWatcher?: CloseWatcher;
@@ -37,12 +41,12 @@ export default class ThreadmarkDirectory extends Component<ThreadmarkListAttrs> 
     m.redraw();
   };
 
-  oninit(vnode: Mithril.Vnode<ThreadmarkListAttrs, this>) {
+  oninit(vnode: Mithril.Vnode<ThreadmarkDirectoryAttrs, this>) {
     super.oninit(vnode);
     this.phone = app.screen() === 'phone';
   }
 
-  oncreate(vnode: Mithril.VnodeDOM<ThreadmarkListAttrs, this>) {
+  oncreate(vnode: Mithril.VnodeDOM<ThreadmarkDirectoryAttrs, this>) {
     super.oncreate(vnode);
     this.$().on('shown.bs.dropdown.threadmarks', () => {
       this.isOpened = true;
@@ -66,7 +70,7 @@ export default class ThreadmarkDirectory extends Component<ThreadmarkListAttrs> 
     window.addEventListener(DIRECTORY_OPEN_EVENT, this.openRequested);
   }
 
-  onremove(vnode: Mithril.VnodeDOM<ThreadmarkListAttrs, this>) {
+  onremove(vnode: Mithril.VnodeDOM<ThreadmarkDirectoryAttrs, this>) {
     this.close();
     this.$().off('.threadmarks');
     this.closeWatcher?.destroy();
@@ -81,15 +85,16 @@ export default class ThreadmarkDirectory extends Component<ThreadmarkListAttrs> 
 
   view() {
     return (
-      <div className={this.phone ? 'Dropdown ThreadmarkDirectory-mobile' : 'ThreadmarkDirectory-control'}>
+      <div className={this.phone ? 'Dropdown ThreadmarkDirectory-mobile' : 'ButtonGroup ThreadmarkDirectory-control'}>
+        {!this.phone && this.attrs.onlyModeControl}
         <button
           type="button"
-          className={`Button ThreadmarkDirectory-toggle ${this.phone ? 'Dropdown-toggle Button--icon' : 'Button--block App-secondaryControl'} ${this.isOpened ? 'active' : ''}`}
+          className={`Button Button--icon Dropdown-toggle ThreadmarkDirectory-toggle ${this.isOpened ? 'active' : ''}`}
           data-toggle={this.phone ? 'dropdown' : undefined}
           aria-label={
             this.isOpened
-              ? extractText(app.translator.trans('ffans-threadmarks.forum.directory.hide_button'))
-              : extractText(app.translator.trans('ffans-threadmarks.forum.directory.show_button'))
+              ? extractText(app.translator.trans('ffans-threadmarks.forum.directory.close_a11y_label'))
+              : extractText(app.translator.trans('ffans-threadmarks.forum.directory.show_button_a11y_label'))
           }
           aria-expanded={this.isOpened ? 'true' : 'false'}
           aria-pressed={this.isOpened ? 'true' : 'false'}
@@ -103,11 +108,6 @@ export default class ThreadmarkDirectory extends Component<ThreadmarkListAttrs> 
           }
         >
           {icon('fas fa-list', { className: 'Button-icon' })}
-          <span className="Button-label">
-            {this.isOpened
-              ? app.translator.trans('ffans-threadmarks.forum.directory.hide_button')
-              : app.translator.trans('ffans-threadmarks.forum.directory.show_button')}
-          </span>
         </button>
         {this.phone && (
           <div className="Dropdown-menu dropdown-menu ThreadmarkDirectory-mobileMenu">
@@ -122,6 +122,17 @@ export default class ThreadmarkDirectory extends Component<ThreadmarkListAttrs> 
                 {icon('fas fa-times')}
               </button>
             </header>
+            {this.attrs.onlyModeControl && (
+              <div
+                className="ThreadmarkDirectory-readingMode"
+                onclick={(event: MouseEvent) => {
+                  event.stopPropagation();
+                  this.close();
+                }}
+              >
+                {this.attrs.onlyModeControl}
+              </div>
+            )}
             {this.directoryContent()}
           </div>
         )}

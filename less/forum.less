@@ -378,7 +378,7 @@
 }
 
 @media (max-width: 767px) {
-  .DiscussionPage-nav > ul > .item-threadmarks {
+  .DiscussionPage-nav > ul > .item-threadmarksOnly {
     display: block;
     margin: 0;
   }
@@ -424,6 +424,16 @@
     overflow: hidden;
 
     .ThreadmarkDirectory-filters > .Button {
+      min-height: 44px;
+    }
+  }
+
+  .ThreadmarkDirectory-readingMode {
+    padding: 8px 8px 0;
+    flex-shrink: 0;
+
+    > .Button {
+      .Button--block();
       min-height: 44px;
     }
   }
