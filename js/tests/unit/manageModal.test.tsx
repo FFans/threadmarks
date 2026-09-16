@@ -97,7 +97,7 @@ test.each(['discussion', 'personal'] as const)('%s editing retains only its curr
   select.value = '2';
   select.dispatchEvent(new Event('change', { bubbles: true }));
   m.render(root, instance.content());
-  expect(root.querySelector('.ManageThreadmarkModal-typePreview .fa-book')).not.toBeNull();
+  expect(root.querySelector('.ManageThreadmarkModal-typePreview .fa-book-bookmark')).not.toBeNull();
   expect(root.querySelector<HTMLElement>('.ManageThreadmarkModal-typePreview')!.style.color).toBe('rgb(0, 170, 0)');
   const mark = scope === 'personal' ? data.personalMark : data.publicMark;
   const save = jest.spyOn(mark, 'save').mockResolvedValue(mark as any);

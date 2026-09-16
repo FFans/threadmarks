@@ -46,7 +46,7 @@ test('only mode enters near the visible post and restores the live normal readin
   jest.spyOn(root.querySelector('.PostStream-item')!, 'getBoundingClientRect').mockReturnValue({ top: 10, bottom: 100, height: 90 } as DOMRect);
   let items = page.sidebarItems();
   expect(items.has('unrelated')).toBe(true);
-  await (items.get('threadmarksOnly') as any).attrs.onclick();
+  await (items.get('threadmarksOnly') as any).attrs.onlyModeControl.attrs.onclick();
   expect(state.get('threadmarksOnly')).toBe(true);
   expect(state.get('threadmarkStream').current()).toBe(far);
   expect(page['near']).toBe(80);
@@ -54,7 +54,7 @@ test('only mode enters near the visible post and restores the live normal readin
   const goToNumber = jest.fn(() => pending.promise);
   state.set('stream', { goToNumber });
   items = page.sidebarItems();
-  const restoring = (items.get('threadmarksOnly') as any).attrs.onclick();
+  const restoring = (items.get('threadmarksOnly') as any).attrs.onlyModeControl.attrs.onclick();
   expect(goToNumber).toHaveBeenCalledWith(80, true);
   expect(state.get('threadmarksOnly')).toBe(true);
   pending.resolve();
@@ -66,7 +66,7 @@ test('restoring an old page cannot switch a newly navigated discussion out of on
   state.set('threadmarksOnly', true);
   const pending = deferred<void>();
   state.set('stream', { goToNumber: () => pending.promise });
-  const restoring = (page.sidebarItems().get('threadmarksOnly') as any).attrs.onclick();
+  const restoring = (page.sidebarItems().get('threadmarksOnly') as any).attrs.onlyModeControl.attrs.onclick();
   state.set('stream', {});
   pending.resolve();
   await restoring;
