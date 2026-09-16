@@ -15,7 +15,7 @@ class TypeManagementApiTest extends ForumTestCase
     private function typePayload(array $attributes = []): array
     {
         return ['data' => ['type' => 'threadmark-types', 'attributes' => $attributes + [
-            'key' => 'custom', 'name' => 'Custom', 'color' => '#123456', 'icon' => 'fas fa-book',
+            'key' => 'custom', 'name' => 'Custom', 'color' => '#123456', 'icon' => 'fa-solid fa-book-bookmark',
         ]]];
     }
 

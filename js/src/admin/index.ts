@@ -7,7 +7,7 @@ app.initializers.add('ffans-threadmarks', () => {
     .for('ffans-threadmarks')
     .registerPermission(
       {
-        icon: 'fas fa-bookmark',
+        icon: 'fa-solid fa-book-bookmark',
         label: app.translator.trans('ffans-threadmarks.admin.permissions.manage_personal_label'),
         permission: 'discussion.ffans-threadmarks.managePersonalThreadmarks',
       },
@@ -16,7 +16,7 @@ app.initializers.add('ffans-threadmarks', () => {
     )
     .registerPermission(
       {
-        icon: 'fas fa-bookmark',
+        icon: 'fa-solid fa-book-bookmark',
         label: app.translator.trans('ffans-threadmarks.admin.permissions.manage_own_discussion_label'),
         permission: 'discussion.ffans-threadmarks.manageOwnDiscussionThreadmarks',
       },
@@ -25,7 +25,7 @@ app.initializers.add('ffans-threadmarks', () => {
     )
     .registerPermission(
       {
-        icon: 'fas fa-bookmark',
+        icon: 'fa-solid fa-book-bookmark',
         label: app.translator.trans('ffans-threadmarks.admin.permissions.manage_discussion_label'),
         permission: 'discussion.ffans-threadmarks.manageDiscussionThreadmarks',
       },

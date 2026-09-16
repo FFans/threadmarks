@@ -26,7 +26,7 @@ return [
             ['key' => 'highlight', 'name' => 'Highlight', 'color' => '#f59e0b', 'icon' => 'fa-solid fa-star', 'position' => 3, 'is_builtin' => true],
             ['key' => 'progress', 'name' => 'Progress', 'color' => '#059669', 'icon' => 'fa-solid fa-arrow-trend-up', 'position' => 4, 'is_builtin' => true],
             ['key' => 'update', 'name' => 'Update', 'color' => '#8b5cf6', 'icon' => 'fa-solid fa-rocket', 'position' => 5, 'is_builtin' => true],
-            ['key' => 'chapter', 'name' => 'Chapter', 'color' => '#0891b2', 'icon' => 'fa-solid fa-book', 'position' => 6, 'is_builtin' => true],
+            ['key' => 'chapter', 'name' => 'Chapter', 'color' => '#0891b2', 'icon' => 'fa-solid fa-book-bookmark', 'position' => 6, 'is_builtin' => true],
         ]);
     },
     'down' => function (Builder $schema) {

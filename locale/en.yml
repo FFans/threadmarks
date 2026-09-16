@@ -97,7 +97,7 @@ ffans-threadmarks:
       name_label: Name
       color_label: "=> core.ref.color"
       icon_label: "=> core.ref.icon"
-      icon_placeholder: fa-solid fa-book
+      icon_placeholder: fas fa-bookmark
     validation:
       first_post: Threadmarks cannot be added to the first post.
       duplicate_discussion: This post already has a discussion threadmark. Edit the existing one instead.

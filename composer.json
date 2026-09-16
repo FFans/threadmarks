@@ -62,7 +62,7 @@
       "category": "feature",
       "optional-dependencies": ["flarum/gdpr"],
       "icon": {
-        "name": "fas fa-bookmark",
+        "name": "fa-solid fa-book-bookmark",
         "color": "#ffffff",
         "backgroundColor": "#357eff"
       }

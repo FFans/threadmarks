@@ -72,7 +72,7 @@ export function fixture(target: typeof app = app) {
       key: 'chapter',
       name: 'Chapter',
       color: '#00aa00',
-      icon: 'fas fa-book',
+      icon: 'fa-solid fa-book-bookmark',
       position: 2,
       isEnabled: true,
       isBuiltin: false,

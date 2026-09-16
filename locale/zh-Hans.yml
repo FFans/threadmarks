@@ -97,7 +97,7 @@ ffans-threadmarks:
       name_label: 名称
       color_label: "=> core.ref.color"
       icon_label: "=> core.ref.icon"
-      icon_placeholder: fa-solid fa-book
+      icon_placeholder: fas fa-bookmark
     validation:
       first_post: 首帖不能添加帖标。
       duplicate_discussion: 此帖子已有讨论帖标，请编辑现有帖标。
